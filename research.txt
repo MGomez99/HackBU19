@@ -30,3 +30,5 @@ https://en.wikipedia.org/wiki/Chess_piece_relative_value
 REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAD THIS
 
 https://ieeexplore.ieee.org/abstract/document/934299
+
+flags to use -static-libgcc -static-libstdc++

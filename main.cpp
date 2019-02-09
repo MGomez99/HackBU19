@@ -1,8 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "game.h"
-#include <typeinfo>
-#include <string>
+
 
 using namespace std;
 

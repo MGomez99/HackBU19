@@ -3,10 +3,6 @@
 #include <vector>
 #include <cstdio>
 #include <string>
-<<<<<<< HEAD
-#include <map>
-=======
->>>>>>> 45bd9b4a0eab76d6fc656f38b7c1bcb47f14f65c
 
 #ifndef GAME_1
 #define GAME_1
@@ -31,20 +27,12 @@ namespace game{
                 {pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW},
                 {rookW, knightW, bishopW, queenW, kingW, bishopW, knightW, rookW} };
         public:
-<<<<<<< HEAD
             bool isValidMove(int piece, std::tuple<int> position, vect2d board);
             bool isInCheck(int turn, vect2d board); //is the player in check; 0 = white | 1 = black
             bool gameOver(); //is the game won 
             void move(int piece, std::tuple<int, int> move, vect2d board); //move piece
             vect2d getBoard(){ return this->gameboard;}
             void printBoard(vect2d board);
-=======
-            bool isValidMove(int piece, std::tuple<int> position);
-            bool isInCheck(int turn); //is the player in check; 0 = white | 1 = black
-            bool gameOver(); //is the game won
-            void move(int piece, std::tuple<int, int> move); //move piece
-            std::vector <std::vector<int>> getBoard(){ return this->gameboard;}
->>>>>>> 45bd9b4a0eab76d6fc656f38b7c1bcb47f14f65c
 
 
     };

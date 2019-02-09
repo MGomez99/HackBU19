@@ -42,10 +42,9 @@ void printBoard(vect2d board){
     
     for(int i = 7; i >= 0; i++){
         std::cout << "|\t";
-        for(int j = 0; i < 8; i++)
-        {
-            
+        for(int j = 0; i < 8; i++){
+            std::cout << PieceNames[board[i][j]] << "\t";
         }
-        std::cout << "|\t" << std::endl;
+        std::cout << "|" << std::endl;
     }
 }

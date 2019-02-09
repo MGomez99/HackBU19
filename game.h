@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdio>
 #include <string>
+#include <tuple>
 
 #ifndef GAME_1
 #define GAME_1
@@ -13,16 +14,17 @@ enum Pieces {empty = -1, pawnW, rookW, knightW, bishopW, queenW, kingW, pawnB, r
 namespace game{
     class gameboard{ 
         private:
-            std::vector <std::vector<int>> gameboard{ {rookB, knightB, bishopB, queenB, kingB, bishopB, knightB, rookB}, 
-                                            {pawnB, pawnB, pawnB, pawnB, pawnB, pawnB, pawnB, pawnB},
-                                            {empty, empty, empty, empty, empty, empty, empty, empty},
-                                            {empty, empty, empty, empty, empty, empty, empty, empty},
-                                            {empty, empty, empty, empty, empty, empty, empty, empty},
-                                            {empty, empty, empty, empty, empty, empty, empty, empty},
-                                            {pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW},
-                                            {rookW, knightW, bishopW, queenW, kingW, bishopW, knightW, rookW} };
+            std::vector <std::vector<int>> gameboard{ 
+                {rookB, knightB, bishopB, queenB, kingB, bishopB, knightB, rookB}, 
+                {pawnB, pawnB, pawnB, pawnB, pawnB, pawnB, pawnB, pawnB},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {empty, empty, empty, empty, empty, empty, empty, empty},
+                {pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW},
+                {rookW, knightW, bishopW, queenW, kingW, bishopW, knightW, rookW} };
         public:
-            bool isValidMove(int piece);
+            bool isValidMove(int piece, tuple<int> position);
             bool isInCheck(int turn); //is the player in check; 0 = white | 1 = black
             bool gameOver(); //is the game won 
             void move(int piece, std::tuple<int, int> move); //move piece

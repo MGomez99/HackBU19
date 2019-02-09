@@ -28,3 +28,23 @@ bool isValidMove(int piece, std::tuple<int, int> position){
             break;
     }
 }
+
+bool isInCheck(int turn){
+
+}
+bool gameOver(){
+
+}
+void move(int piece, std::tuple<int, int> move, vect2d board){
+
+}
+void printBoard(vect2d board){
+    
+    for(int i = 7; i >= 0; i++){
+        std::cout << "|\t";
+        for(int j = 0; i < 8; i++){
+            std::cout << PieceNames[board[i][j]] << "\t";
+        }
+        std::cout << "|" << std::endl;
+    }
+}

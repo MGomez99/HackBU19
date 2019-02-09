@@ -33,18 +33,22 @@ bool isInCheck(int turn){
 
 }
 bool gameOver(){
-
-}
-void move(int piece, std::tuple<int, int> move, vect2d board){
-
-}
-void printBoard(vect2d board){
     
-    for(int i = 7; i >= 0; i++){
+}
+void move(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
+    vect2d[std::get<0>(end)][std::get<1>(end)] = piece;
+
+}
+void printBoard(vect2d board, int turn){
+    
+    for(int i = 0; i < 8; i++){
         std::cout << "|\t";
         for(int j = 0; i < 8; i++){
             std::cout << PieceNames[board[i][j]] << "\t";
         }
         std::cout << "|" << std::endl;
     }
+    std::cout << "Current turn: ";
+    if(turn == 0){std::cout << "White";}
+    else{std::cout << "Black";}
 }

@@ -111,9 +111,9 @@ int main(){
       if(move.find(delim)  == -1){
         valid = false;
       }
-
       space1 = move.substr(0, move.find(delim));
       space2 = move.substr(move.find(delim)+1, move.length());
+
       if(space1.length() != 2  || space2.length() != 2){
         valid = false;
       }

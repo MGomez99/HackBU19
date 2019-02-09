@@ -1,0 +1,32 @@
+https://www.cs.cornell.edu/boom/2004sp/ProjectArch/Chess/algorithms.html
+
+
+
+
+opening database: http://people.cornell.edu/pages/msf22/eco.pgn
+some thoughts:
+
+1.) The branching factor is typically between 25 and 40 moves per ply (the average is around 35).  
+2.) Pruning: look at scores one ply ahead. Sort based on absolute values of move scores, smallest first. This lets branching factor down to 25.
+3.) Starting the sort/finding lower bound on best moves: let opposing player play 2 moves instead of one, choosing the two on small-ply min-max search, THEN compute the score. "Certainly, any move made by the current player should beat a score obtainable by the opponent getting two chances
+to move"
+4.) " A move that may seem great may actually be
+a disaster because of something that could happen on the very next move." so search the tree for moves that don't make large changes
+5.) from 4: only look at higher depths in important moments, i.e. captures. Maybe more?
+6.) Evaluating positions: here's what to keep in mind... 
+          how far up the board the pawns are since promoting is a thing
+          how many different spaces can you move to with that piece
+          'How many of the opponent's pieces are threatened by attack? This includes checks (which is a threat on the king)'
+          How many pieces are protecting your pieces from attacks?
+7.) "The total number of unique numbers that sum up to give the total board score is thus 25"
+8.) there's a database of good openers, the program could maybe use that and see if a move fits the opener? More on that is on the link, I don't really get how it would work.
+
+
+
+values of pieces:
+https://en.wikipedia.org/wiki/Chess_piece_relative_value
+
+
+REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAD THIS
+
+https://ieeexplore.ieee.org/abstract/document/934299

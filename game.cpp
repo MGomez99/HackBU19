@@ -36,7 +36,8 @@ bool gameOver(){
     
 }
 void move(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
-    vect2d[std::get<0>(end)][std::get<1>(end)] = piece;
+    board[std::get<0>(start)][std::get<1>(start)] = empty;
+    board[std::get<0>(end)][std::get<1>(end)] = piece;
 
 }
 void printBoard(vect2d board, int turn){

@@ -1,7 +1,9 @@
 #include "game.h"
 
 using namespace game;
+GameBoard(){
 
+};
 bool isValidMove(int piece, std::tuple<int, int> position){
     switch (piece % 6)
     { //@TODO

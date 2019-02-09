@@ -16,7 +16,7 @@ enum Pieces {empty = -1, pawnW, rookW, knightW, bishopW, queenW, kingW, pawnB, r
 char const *PieceNames[12] = {"pawnW", "rookW", "knightW", "bishopW", "queenW", "kingW", "pawnB", "rookB", "knightB", "bishopB", "queenB", "kingB"};
 
 namespace game{
-    class gameboard{
+    class GameBoard{
         private:
             vect2d board{
                 {rookB, knightB, bishopB, queenB, kingB, bishopB, knightB, rookB},
@@ -28,6 +28,7 @@ namespace game{
                 {pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW, pawnW},
                 {rookW, knightW, bishopW, queenW, kingW, bishopW, knightW, rookW} };
         public:
+            GameBoard();
             bool isValidMove(int piece, std::tuple<int> position, vect2d board);
             bool isInCheck(int turn, vect2d board); //is the player in check; 0 = white | 1 = black
             bool gameOver(); //is the game won 

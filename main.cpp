@@ -12,8 +12,10 @@ int main(){
   string space2;
   string delim = "-";
   bool valid = false;
-  int current[2];
-  int next[2];
+  int current1;
+  int current2;
+  int next1;
+  int next2;
 
   cout << "\n\n\nQuick explanation of how to input moves: put the name of the space the piece is on \nfirst and the space you want to move to second.  Examples: d8-d6 or h7-h5\nMake sure everything is lowercase and you seperate the spaces with dashes\n\n\n" << endl;
   while(running){
@@ -53,53 +55,52 @@ int main(){
       }
     }
 
-    char sf1 = space1.front();
-    char sb1 = space1.back();
-    char sf2 = space2.front();
-    char sb2 = space2.back();
-
-    switch(sf1){
-      case 'a': current[2] = 1; break;
-      case 'b': current[2] = 2; break;
-      case 'c': current[2] = 3; break;
-      case 'd': current[2] = 4; break;
-      case 'e': current[2] = 5; break;
-      case 'f': current[2] = 6; break;
-      case 'h': current[2] = 7; break;
+    switch(space1.front()){
+      case 'a': current2 = 1; break;
+      case 'b': current2 = 2; break;
+      case 'c': current2 = 3; break;
+      case 'd': current2 = 4; break;
+      case 'e': current2 = 5; break;
+      case 'f': current2 = 6; break;
+      case 'g': current2 = 7; break;
+      case 'h': current2 = 8; break;
     }
 
-    switch(sb1){
-      case '1': current[1] = 1; break;
-      case '2': current[1] = 2; break;
-      case '3': current[1] = 3; break;
-      case '4': current[1] = 4; break;
-      case '5': current[1] = 5; break;
-      case '6': current[1] = 6; break;
-      case '7': current[1] = 7; break;
+    switch(space1.back()){
+      case '1': current1 = 1; break;
+      case '2': current1 = 2; break;
+      case '3': current1 = 3; break;
+      case '4': current1 = 4; break;
+      case '5': current1 = 5; break;
+      case '6': current1 = 6; break;
+      case '7': current1 = 7; break;
+      case '8': current1 = 8; break;
     }
 
-    switch(sf2){
-      case 'a': next[2] = 1; break;
-      case 'b': next[2] = 2; break;
-      case 'c': next[2] = 3; break;
-      case 'd': next[2] = 4; break;
-      case 'e': next[2] = 5; break;
-      case 'f': next[2] = 6; break;
-      case 'h': next[2] = 7; break;
+    switch(space2.front()){
+      case 'a': next2 = 1; break;
+      case 'b': next2 = 2; break;
+      case 'c': next2 = 3; break;
+      case 'd': next2 = 4; break;
+      case 'e': next2 = 5; break;
+      case 'f': next2 = 6; break;
+      case 'g': next2 = 7; break;
+      case 'h': next2 = 8; break;
     }
 
-    switch(sb2){
-      case '1': next[1] = 1; break;
-      case '2': next[1] = 2; break;
-      case '3': next[1] = 3; break;
-      case '4': next[1] = 4; break;
-      case '5': next[1] = 5; break;
-      case '6': next[1] = 6; break;
-      case '7': next[1] = 7; break;
+    switch(space2.back()){
+      case '1': next1 = 1; break;
+      case '2': next1 = 2; break;
+      case '3': next1 = 3; break;
+      case '4': next1 = 4; break;
+      case '5': next1 = 5; break;
+      case '6': next1 = 6; break;
+      case '7': next1 = 7; break;
+      case '8': next1 = 8; break;
     }
 
-    cout << "This is the first square: " << current[1] << ","<< current[2] << endl;
-    cout << "This is the second square: " << next[1] << ","<< next[2] << endl;
+    cout << "first space for white: "<< current1 << ","<< current2 << endl;
+    cout << "second space for white: "<< next1 << ","<< next2 << endl;
 
     //Black's turn
     valid = false;
@@ -107,7 +108,6 @@ int main(){
       valid = true;
       cout << "Black, please select a move" << endl;
       cin >> move;
-      cout << move << endl;
       if(move.find(delim)  == -1){
         valid = false;
       }
@@ -137,7 +137,51 @@ int main(){
       }
     }
 
-//    cout << "This is the first square: " << current[1] << ","<< current[2] << endl;
-//    cout << "This is the second square: " << next[1] << ","<< next[2] << endl;
+    switch(space1.front()){
+      case 'a': current2 = 1; break;
+      case 'b': current2 = 2; break;
+      case 'c': current2 = 3; break;
+      case 'd': current2 = 4; break;
+      case 'e': current2 = 5; break;
+      case 'f': current2 = 6; break;
+      case 'g': current2 = 7; break;
+      case 'h': current2 = 8; break;
+    }
+
+    switch(space1.back()){
+      case '1': current1 = 1; break;
+      case '2': current1 = 2; break;
+      case '3': current1 = 3; break;
+      case '4': current1 = 4; break;
+      case '5': current1 = 5; break;
+      case '6': current1 = 6; break;
+      case '7': current1 = 7; break;
+      case '8': current1 = 8; break;
+    }
+
+    switch(space2.front()){
+      case 'a': next2 = 1; break;
+      case 'b': next2 = 2; break;
+      case 'c': next2 = 3; break;
+      case 'd': next2 = 4; break;
+      case 'e': next2 = 5; break;
+      case 'f': next2 = 6; break;
+      case 'g': next2 = 7; break;
+      case 'h': next2 = 8; break;
+    }
+
+    switch(space2.back()){
+      case '1': next1 = 1; break;
+      case '2': next1 = 2; break;
+      case '3': next1 = 3; break;
+      case '4': next1 = 4; break;
+      case '5': next1 = 5; break;
+      case '6': next1 = 6; break;
+      case '7': next1 = 7; break;
+      case '8': next1 = 8; break;
+    }
+
+    cout << "first space for black: "<< current1 << ","<< current2 << endl;
+    cout << "second space for black: "<< next1 << ","<< next2 << endl;
   }
 }

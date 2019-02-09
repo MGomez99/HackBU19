@@ -18,11 +18,20 @@ int main(){
   space2 = move.substr(move.find(delim)+1, move.length());
   cout << space1 << endl;
   cout << space2 << endl;
-  if(space1.length() != 2  || space2.length()){
+  if(space1.length() != 2  || space2.length() != 2){
     cout << "invalid input" << endl;
   }
-  if(space1.front() == 'a'){
-    cout << "works" << endl;
+  if(space1.front() < 97 ||  space1.front() > 104){
+    cout << "invalid first char 1" << endl;
+  }
+  if(space2.front() < 97 ||  space2.front() > 104){
+    cout << "invalid first char 2" << endl;
+  }
+  if(space1.back() < 49 || space1.back() > 56){
+    cout << "invalid num 1" << endl;
+  }
+  if(space2.back() < 49 || space2.back() > 56){
+    cout << "invalid num 2" << endl;
   }
 
 //  while(running){

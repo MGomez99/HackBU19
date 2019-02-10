@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -DDEBUG -g -std=c++14
+CFLAGS = -Wall -Wextra -DDEBUG -g -std=c++14 -static-libgcc -static-libstdc++
 l = game
 s = main
 $(l):

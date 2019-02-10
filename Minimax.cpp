@@ -234,7 +234,7 @@ bool isThreatened(){
   //higher level threats, for ai later
 }
 
-bool inCheck(vector<vector<int>> board, int player){
+bool inCheck(int player, vector<vector<int>> board){
   if(player == 0){ //king in question is white
     for(int i = 0; i < 8; i++){
       for(int j = 0; j < 8; j++){

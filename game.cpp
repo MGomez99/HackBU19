@@ -502,19 +502,64 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
     return allValidMoves;
 }
 
-bool GameBoard::isInCheck(int turn, vect2d board){
-    return true;
+bool GameBoard::inCheck(int player, vect2d board){
+    if(player == 0){ //king in question is white
+    for(int i = 0; i < 8; i++){
+      for(int j = 0; j < 8; j++){
+        if(board[i][j]==5){
+          if(isAttacked(board, i, j)) return true;
+        }
+      }
+    }
+  }
+  if(player == 1){ //king in question is black
+    for(int i = 0; i < 8; i++){
+      for(int j = 0; j < 8; j++){
+        if(board[i][j]==11){
+          if(isAttacked(board, i, j)) return true;
+        }
+      }
+    }
+  }
+  return false;
 }
-bool GameBoard::checkmate(){
-    return true;
+
+std::vector<std::tuple<int, int, int, int>> allPossibleMoves(vect2d board, int turn){
+  std::vector<std::tuple<int, int, int, int>> moves;
+  if(turn == 0) { //white to play
+    for(int i = 0; i < 8; i++){
+      for(int j = 0; j < 8; j++){
+        if(board[i][j] < 6){
+          for(std::tuple<int, int> t : possibleMoves(std::make_tuple(i, j), board)){
+            moves.push_back(std::make_tuple(i, j, std::get<0>(t), std::get<1>(t)));
+          }
+        }
+      }
+    }
+  }
+  else{ //black to play
+    for(int i = 0; i < 8; i++){
+      for(int j = 0; j < 8; j++){
+        if(board[i][j] > 5){
+          for(std::tuple<int, int> t : possibleMoves(std::make_tuple(i, j), board)){
+            moves.push_back(std::make_tuple(i, j, std::get<0>(t), std::get<1>(t)));
+          }
+        }
+      }
+    }
+  }
+  return moves;
 }
-vect2d GameBoard::modBoard(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
+
+vect2d GameBoard::modBoard(std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
+    int piece = board[std::get<0>(start)][std::get<1>(start)];
     board[std::get<0>(start)][std::get<1>(start)] = empty;
     board[std::get<0>(end)][std::get<1>(end)] = piece;
-    //en-Passant check
-    if(piece % 6 == 0){
+    //en-Passant check and promotion check
+    if(piece % 6 == 0){ //piece is a pawn
+        /** FOR EN PASSANT*/
        if(std::get<1>(start) == std::get<0>(end) +1 || std::get<1>(start) == std::get<0>(end) - 1){ //if a pawn is moving  to a different coloumn
-            if((std::get<1>(enPassant) == std::get<1>(end)) && (std::get<0>(enPassant) == std::get<0>(start))){
+            if((std::get<1>(enPassant) == std::get<1>(end)) && (std::get<0>(enPassant) == std::get<0>(start))){ 
                 board[std::get<0>(enPassant)][std::get<1>(enPassant)] = empty;
                 enPassant = std::make_tuple(-1, -1);
             }
@@ -522,7 +567,21 @@ vect2d GameBoard::modBoard(int piece, std::tuple<int, int> start, std::tuple<int
        if(std::get<0>(start) + 2 == std::get<0>(end) ||std::get<0>(start) - 2 == std::get<0>(end)){
            enPassant = end;
        }
-       //Check Promotion @TODO
+       else{
+           enPassant = std::make_tuple(-1, -1);
+           if(piece == 0){
+                if(std::get<0>(end) == 0 && std::get<0>(start) == 1){
+                    board[std::get<0>(end)][std::get<1>(end)] = 4;
+                }
+           }
+           if(piece == 6){
+                if(std::get<0>(end) == 7 && std::get<0>(start) == 6){
+                    board[std::get<0>(end)][std::get<1>(end)] = 10;
+                }
+           }
+           
+       }
+       
     }
     else{ //make sure to set enPassant to not active
         enPassant = std::make_tuple(-1, -1);
@@ -560,12 +619,29 @@ vect2d GameBoard::modBoard(int piece, std::tuple<int, int> start, std::tuple<int
     /**************************************************************************************/
     //King Castle Moves
     if(piece % 6 == 5){
-        
+    //Piece is a king, check if it castled
+        if(abs(std::get<1>(end)-std::get<1>(start)) > 1){ //king moved more than one horizontal in a valid move
+            if(piece < 6){//white
+                board[std::get<0>(start)][std::get<1>(start)] = 3;
+            }
+            else{//black
+                board[std::get<0>(start)][std::get<1>(start)] = 8;
+            }
+            
+        }
     }
     return board;
 }
-
-void printBoard(vect2d board, int turn){
+bool GameBoard::isValidMove(std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
+    std::vector<std::tuple<int, int>> pieceMoves = possibleMoves(start, board);
+    for(std::tuple<int, int> move : pieceMoves){
+        if(end == move){
+            return true;
+        }
+    }
+    return false;
+}
+void GameBoard::printBoard(vect2d board, int turn){
     
     for(int i = 0; i < 8; i++){
         std::cout << "|\t";
@@ -577,4 +653,12 @@ void printBoard(vect2d board, int turn){
     std::cout << "Current turn: ";
     if(turn == 0){std::cout << "White";}
     else{std::cout << "Black";}
+}
+bool GameBoard::checkMate(std::vector<std::vector<int>> board, int player){
+    if(inCheck(player, board)){
+        for(std::tuple<int, int, int, int> move : allPossibleMoves(board, player)) {
+        if(!inCheck(player, modBoard(std::make_tuple(std::get<0>(move), std::get<1>(move)),std::make_tuple(std::get<2>(move), std::get<3>(move)), board))) return false;
+        }
+    }
+  return true;
 }

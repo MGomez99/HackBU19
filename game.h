@@ -13,7 +13,7 @@ enum Pieces {empty = -1, pawnW, knightW, bishopW, rookW, queenW, kingW, pawnB, k
     /*  White < 6 ; Black >= 6
         Pawn = 0/6, Rook = 1/7, Knight = 2/8, Bishop = 3/9, Queen = 4/10, King = 5/12
     */
-
+//     main::main()
 namespace game{
     class GameBoard{
         private:
@@ -28,12 +28,16 @@ namespace game{
                 {rookW, knightW, bishopW, queenW, kingW, bishopW, knightW, rookW} };
         public:
             GameBoard();
-            bool isValidMove(int piece, std::tuple<int> position, vect2d board);
-            bool isInCheck(int turn, vect2d board); //is the player in check; 0 = white | 1 = black
-            bool checkmate(); //check for c
-            vect2d modBoard(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board); //modifies board and returns it
+            std::tuple<int, int, int> bCastle = std::make_tuple(1, 1 , 1); //hasn't moved
+            std::tuple<int, int, int> wCastle = std::make_tuple(1, 1 , 1); //hasn't moved
+            std::tuple<int, int> enPassant = std::make_tuple(-1, -1);
+            bool isValidMove(std::tuple<int, int> start, std::tuple<int, int> end, vect2d board);
+            bool inCheck(int turn, vect2d board); //is the player in check; 0 = white | 1 = black
+            bool checkMate(std::vector<std::vector<int>> board, int player); //check for c
+            vect2d modBoard(std::tuple<int, int> start, std::tuple<int, int> end, vect2d board); //modifies board and returns it
             vect2d getBoard(){ return this->board;}
             void printBoard(vect2d board, int turn);
+            std::vector<std::tuple<int, int>>possibleMoves(std::tuple<int, int> position, vect2d board);
 
 
     };

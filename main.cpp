@@ -4,8 +4,8 @@
 using namespace std;
 
 int main(){
-  GameBoard myBoard = GameBoard();
-  
+  GameBoard myBoard;
+
   bool running = true;
   string move;
   string space1;

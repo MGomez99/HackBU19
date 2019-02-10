@@ -203,16 +203,28 @@ bool isAttacked(vector<vector<int>> board, int x, int y){
   x = xpos;
   y = ypos;
   //knights
-  if(team = 0){ //checking for black knights
+  if(team == 0){ //checking for black knights
     if(board[x-1][y+2]==7||board[x+1][y+2]==7||board[x+2][y+1]==7||board[x+2][y-1]==7||board[x+1][y-2]==7||board[x-1][y-2]==7||board[x-2][y-1]==7||board[x-2][y+1]==7){
       return true;
     }
   }
-  else{
+  else{ //checking for white knights
     if(board[x-1][y+2]==2||board[x+1][y+2]==2||board[x+2][y+1]==2||board[x+2][y-1]==2||board[x+1][y-2]==2||board[x-1][y-2]==2||board[x-2][y-1]==2||board[x-2][y+1]==2){
       return true;
     }
   }
+  //pawns
+  if(team == 0){ //checking for black pawns
+    if(board[x-1][y-1]==6||board[x+1][y-1]==6){
+      return true;
+    }
+  }
+  else{ //checking for white pawns
+    if(board[x+1][y+1]==0||board[x+1][y+1]==0){
+      return true;
+    }
+  }
+  return false;
 }
 bool isThreatened(){
   //higher level threats, for ai later

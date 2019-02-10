@@ -28,6 +28,8 @@ namespace game{
                 {rookW, knightW, bishopW, queenW, kingW, bishopW, knightW, rookW} };
         public:
             GameBoard();
+            std::tuple<int, int, int> bCastle = std::make_tuple(1, 1 , 1); //hasn't moved
+            std::tuple<int, int, int> wCastle = std::make_tuple(1, 1 , 1); //hasn't moved
             std::tuple<int, int> enPassant = std::make_tuple(-1, -1);
             bool isValidMove(int piece, std::tuple<int> position, vect2d board);
             bool isInCheck(int turn, vect2d board); //is the player in check; 0 = white | 1 = black

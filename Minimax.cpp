@@ -1,4 +1,8 @@
-//minimax algorithm
+#include "game.h"
+#ifdef LARK
+using namespace std;
+
+
 float minimax(vector<vector<int>> board, bool maximizingPlayer, int turn, int depth){
   //terminal node
   if(checkMate(board)){
@@ -283,3 +287,4 @@ bool checkMate(vector<vector<int>> board, int player){
   }
   return true;
 }
+#endif

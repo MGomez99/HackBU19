@@ -44,7 +44,7 @@ namespace game{
             int teamCheck(int team, int x, int y,vect2d board);
             bool isAttacked(std::vector<std::vector<int>> board, int x, int y);
             std::string getPieceName(int i);
-            
+
     };
 }
 

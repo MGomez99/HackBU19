@@ -686,13 +686,14 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
             move = std::make_tuple(x+1, y+1);
             if(isInBoard(std::get<0>(move), std::get<1>(move))){
                 if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
-                   if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                   if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){}
                         allValidMoves.push_back(move);
                     }
                 }
-            }
+            
 
             break;
+    
         default:
             std::cout << "fatal error, wrong piece?." <<std::endl;
     }std::cout<<"Moves"<<std::endl;
@@ -892,9 +893,10 @@ bool GameBoard::checkMate(std::vector<std::vector<int>> board, int player){
     if(inCheck(player, board)){
         for(std::tuple<int, int, int, int> move : allPossibleMoves(board, player)) {
             if(!inCheck(player, modBoard(std::make_tuple(std::get<0>(move), std::get<1>(move)),std::make_tuple(std::get<2>(move), std::get<3>(move)), board, 1))){
-              if(!isAttacked( modBoard(std::make_tuple(std::get<0>(move), std::get<1>(move)),std::make_tuple(std::get<2>(move), std::get<3>(move)), board, 1), std::get<0>(move), std::get<1>(move)))
-              {
-              return false;
+                if(!isAttacked( modBoard(std::make_tuple(std::get<0>(move), std::get<1>(move)),std::make_tuple(std::get<2>(move), std::get<3>(move)), board, 1), std::get<0>(move), std::get<1>(move)))
+                {
+                   std::cout << "move cm: "<< std::get<2>(move) << std::get<3>(move) << std::endl;
+                return false;
               exit(0);
               }
             } 

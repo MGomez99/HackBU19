@@ -42,11 +42,12 @@ bool isInCheck(int turn, vect2d board){
 bool checkmate(){
     return true;
 }
-void move(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
+vect2d modBoard(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
     board[std::get<0>(start)][std::get<1>(start)] = empty;
     board[std::get<0>(end)][std::get<1>(end)] = piece;
-
+    return board;
 }
+
 void printBoard(vect2d board, int turn){
     
     for(int i = 0; i < 8; i++){

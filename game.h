@@ -31,7 +31,7 @@ namespace game{
             bool isValidMove(int piece, std::tuple<int> position, vect2d board);
             bool isInCheck(int turn, vect2d board); //is the player in check; 0 = white | 1 = black
             bool checkmate(); //check for c
-            void move(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board); //move piece
+            vect2d modBoard(int piece, std::tuple<int, int> start, std::tuple<int, int> end, vect2d board); //modifies board and returns it
             vect2d getBoard(){ return this->board;}
             void printBoard(vect2d board, int turn);
 

@@ -56,7 +56,7 @@ int main(){
         cout << "The move you have selected in not valid, please input a different move." << endl;
       }
     }
-
+    cout << "before switch" << endl;//test
     switch(space1.front()){
       case 'a': current2 = 0; break;
       case 'b': current2 = 1; break;
@@ -69,14 +69,14 @@ int main(){
     }
 
     switch(space1.back()){
-      case '1': current1 = 0; break;
-      case '2': current1 = 1; break;
-      case '3': current1 = 2; break;
-      case '4': current1 = 3; break;
-      case '5': current1 = 4; break;
-      case '6': current1 = 5; break;
-      case '7': current1 = 6; break;
-      case '8': current1 = 7; break;
+      case '1': current1 = 7; break;
+      case '2': current1 = 6; break;
+      case '3': current1 = 5; break;
+      case '4': current1 = 4; break;
+      case '5': current1 = 3; break;
+      case '6': current1 = 2; break;
+      case '7': current1 = 1; break;
+      case '8': current1 = 0; break;
     }
 
     switch(space2.front()){
@@ -91,21 +91,24 @@ int main(){
     }
 
     switch(space2.back()){
-      case '1': next1 = 0; break;
-      case '2': next1 = 1; break;
-      case '3': next1 = 2; break;
-      case '4': next1 = 3; break;
-      case '5': next1 = 4; break;
-      case '6': next1 = 5; break;
-      case '7': next1 = 6; break;
-      case '8': next1 = 7; break;
+      case '1': next1 = 7; break;
+      case '2': next1 = 6; break;
+      case '3': next1 = 5; break;
+      case '4': next1 = 4; break;
+      case '5': next1 = 3; break;
+      case '6': next1 = 2; break;
+      case '7': next1 = 1; break;
+      case '8': next1 = 0; break;
     }
-
+    cout << "after switch: "<<current1<<current2<<"-"<<next1<<next2 << endl;//test
     current = make_tuple(current1, current2);
     next = make_tuple(next1, next2);
+    bool valmove = myBoard.isValidMove(current, next, myBoard.getBoard());
     myBoard.setBoard( myBoard.modBoard(current, next, myBoard.getBoard()));
-    myBoard.checkMate(myBoard.getBoard(), 1);
+    cout << "SET BOARD" << endl;//test
 
+    //myBoard.checkMate(myBoard.getBoard(), 1);
+    cout << "checkMate BOARD" << endl;//test
 
     //Black's turn
     valid = false;

@@ -217,6 +217,9 @@ bool GameBoard::isAttacked(std::vector<std::vector<int>> board, int x, int y){
   return false;
 }
 std::string GameBoard::getPieceName(int i){
+    if(i == -1){
+        return "emptyS";
+    }
     std::vector<std::string> PieceNames = {"pawnW", "knightW", "bishopW", "rookW", "queenW", "kingW", "pawnB", "knightB", "bishopB", "rookB", "queenB", "kingB"};
     return PieceNames[i];
 }
@@ -228,6 +231,7 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
     if(piece > 5){
         team = 1;
     }
+    std::cout << "piece val: "<<piece << std::endl;
     std::tuple<int, int> move;
     std::vector<std::tuple<int, int>> allValidMoves;
     switch (piece % 6)
@@ -367,27 +371,48 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
 
         case 2:
             /* bishop */
-            for(int i = 0; i < 8; i++){
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x+i, y+i)){
                     move = std::make_tuple(x+i, y+i);
-                    if(teamCheck(team, x+i, y+i, board) != 0){ //move will land on enemy piece or is empty
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
+                    if(teamCheck(team, x+i, y+i, board)){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x-i, y+i)){
                     move = std::make_tuple(x-i, y+i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x-i, y+i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x+i, y-i)){
                     move = std::make_tuple(x+i, y-i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x+i, y-i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
+                std::cout << "i: " << i << std::endl;
                 if(isInBoard(x-i, y-i)){
+                    std::cout << "in board" << std::endl;
                     move = std::make_tuple(x-i, y-i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        std::cout << "teammate there " << i << std::endl;
+                        break;
+                    }
                     if(teamCheck(team, x-i, y-i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
@@ -401,24 +426,36 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
             {
                 if(isInBoard(x + i, y)){
                     move = std::make_tuple(x+i, y);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x+i, y, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
                 if(isInBoard(x-i, y)){
                     move = std::make_tuple(x-i, y);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x-i, y, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
                 if(isInBoard(x, y+i)){
                     move = std::make_tuple(x, y+i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x, y+i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
                 if(isInBoard(x, y-i)){
                     move = std::make_tuple(x, y-i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x, y-i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
@@ -432,51 +469,86 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
             {
                 if(isInBoard(x + i, y)){
                     move = std::make_tuple(x+i, y);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x+i, y, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x-i, y)){
                     move = std::make_tuple(x-i, y);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x-i, y, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x, y+i)){
                     move = std::make_tuple(x, y+i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x, y+i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x, y-i)){
                     move = std::make_tuple(x, y-i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x, y-i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
             }
-            for(int i = 0; i < 8; i++) //bishop move style
-            {
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x+i, y+i)){
                     move = std::make_tuple(x+i, y+i);
-                    if(teamCheck(team, x+i, y+i, board) != 0){ //move will land on enemy piece or is empty
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
+                    if(teamCheck(team, x+i, y+i, board)){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x-i, y+i)){
                     move = std::make_tuple(x-i, y+i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x-i, y+i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x+i, y-i)){
                     move = std::make_tuple(x+i, y-i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x+i, y-i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
                 }
+            }
+            for(int i = 1; i < 8; i++){
                 if(isInBoard(x-i, y-i)){
                     move = std::make_tuple(x-i, y-i);
+                    if(teamCheck(team,std::get<0>(move), std::get<1>(move), board) == 0){
+                        break;
+                    }
                     if(teamCheck(team, x-i, y-i, board) != 0){ //move will land on enemy piece or is empty
                         allValidMoves.push_back(move);
                     }
@@ -495,6 +567,9 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
                     if(isAttacked(board, x, i)){
                         canCastle = false;
                     }
+                    if(teamCheck(team, x, i, board) != -1){
+                        canCastle = false;
+                    }
                 }
                 if(canCastle){
                     allValidMoves.push_back(move);
@@ -507,6 +582,9 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
                 bool canCastle = true;
                 for(int i = 4; i < 7; i++){
                     if(isAttacked(board, x, i)){
+                        canCastle = false;
+                    }
+                    if(teamCheck(team, x, i, board) != -1){
                         canCastle = false;
                     }
                 }
@@ -524,6 +602,9 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
                     if(isAttacked(board, x, i)){
                         canCastle = false;
                     }
+                    if(teamCheck(team, x, i,board ) != -1){
+                        canCastle = false;
+                    }
                 }
                 if(canCastle){
                     allValidMoves.push_back(move);
@@ -538,17 +619,87 @@ std::vector<std::tuple<int, int>> GameBoard::possibleMoves(std::tuple<int, int> 
                     if(isAttacked(board, x, i)){
                         canCastle = false;
                     }
+                    if(teamCheck(team, x, i, board) != -1){
+                        canCastle = false;
+                    }
                 }
                 if(canCastle){
                     allValidMoves.push_back(move);
+                }
+            }
+            move = std::make_tuple(x, y-1);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                    if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
+                }
+            }
+            move = std::make_tuple(x, y+1);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                    if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
+                }
+            }
+            move = std::make_tuple(x+1, y);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                    if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
+                }
+            }
+            move = std::make_tuple(x-1, y);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                    if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
+                }
+            }
+            move = std::make_tuple(x-1, y-1);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                    if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
+                }
+            }
+            move = std::make_tuple(x-1, y+1);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                    if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
+                }
+            }
+            move = std::make_tuple(x+1, y-1);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                    if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
+                }
+            }
+            move = std::make_tuple(x+1, y+1);
+            if(isInBoard(std::get<0>(move), std::get<1>(move))){
+                if(!isAttacked(board, std::get<0>(move), std::get<1>(move))){
+                   if(teamCheck(team, std::get<0>(move), std::get<1>(move), board) != 0){
+                        allValidMoves.push_back(move);
+                    }
                 }
             }
 
             break;
         default:
             std::cout << "fatal error, wrong piece?." <<std::endl;
+    }std::cout<<"Moves"<<std::endl;
+    for(std::tuple<int, int> move : allValidMoves){
+        std::cout<<std::get<0>(move)<< ", "<<std::get<1>(move)<<std::endl;
     }
-
+    std::cout<<std::endl;
     return allValidMoves;
 }
 
@@ -604,24 +755,33 @@ std::vector<std::tuple<int, int, int, int>> GameBoard::allPossibleMoves(vect2d b
   return moves;
 }
 
-vect2d GameBoard::modBoard(std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
+vect2d GameBoard::modBoard(std::tuple<int, int> start, std::tuple<int, int> end, vect2d board, int isTemp){
+    std::cout << "Start: " << std::get<0>(start) <<  std::get<1>(start) <<"End: "<<  std::get<0>(end)<< std::get<1>(end)<< std::endl;
     int piece = board[std::get<0>(start)][std::get<1>(start)];
-    board[std::get<0>(start)][std::get<1>(start)] = emptyS;
+    std::cout << "Piece: "<<piece <<std::endl;
     board[std::get<0>(end)][std::get<1>(end)] = piece;
+    board[std::get<0>(start)][std::get<1>(start)] = emptyS;
+    
     //en-Passant check and promotion check
     if(piece % 6 == 0){ //piece is a pawn
         /** FOR EN PASSANT*/
-       if(std::get<1>(start) == std::get<0>(end) +1 || std::get<1>(start) == std::get<0>(end) - 1){ //if a pawn is moving  to a different coloumn
+       if(std::get<1>(start) == std::get<1>(end) +1 || std::get<1>(start) == std::get<1>(end) - 1){ //if a pawn is moving  to a different coloumn
             if((std::get<1>(enPassant) == std::get<1>(end)) && (std::get<0>(enPassant) == std::get<0>(start))){
-                board[std::get<0>(enPassant)][std::get<1>(enPassant)] = emptyS;
-                enPassant = std::make_tuple(-1, -1);
+                board[std::get<0>(enPassant)][std::get<1>(enPassant)] = emptyS; //capture pawn for en passant
+                if(isTemp == 0){
+                    enPassant = std::make_tuple(-1, -1);
+                }
             }
        }
-       if(std::get<0>(start) + 2 == std::get<0>(end) ||std::get<0>(start) - 2 == std::get<0>(end)){
-           enPassant = end;
+       if(std::get<0>(start) + 2 == std::get<0>(end) || std::get<0>(start) - 2 == std::get<0>(end)){
+           if(isTemp ==0){
+            enPassant = end; //set en passant ready flag
+           }
        }
        else{
-           enPassant = std::make_tuple(-1, -1);
+           if(isTemp==0){
+                enPassant = std::make_tuple(-1, -1); //no en passant taken
+           }
            if(piece == 0){
                 if(std::get<0>(end) == 0 && std::get<0>(start) == 1){
                     board[std::get<0>(end)][std::get<1>(end)] = 4;
@@ -636,51 +796,73 @@ vect2d GameBoard::modBoard(std::tuple<int, int> start, std::tuple<int, int> end,
        }
 
     }
-    else{ //make sure to set enPassant to not active
+    else if(isTemp == 0){ //make sure to set enPassant to not active
         enPassant = std::make_tuple(-1, -1);
     }
     /******************************** Castle Logic *********************************/
-    if(piece % 6 == 5){
-        if(piece < 6){
-            wCastle = std::make_tuple(1, 0, 1);
+    if(isTemp == 0){
+        if(piece % 6 == 5){
+            if(piece < 6){
+                wCastle = std::make_tuple(1, 0, 1);
+            }
+            else{
+                bCastle = std::make_tuple(1, 0, 1);
+            }
         }
-        else{
-            bCastle = std::make_tuple(1, 0, 1);
-        }
-    }
 
-    if(piece == 3){
-        if(std::get<0>(start) == 7 &&std::get<1>(start) == 0){
-            std::tuple<int, int, int> temp = std::make_tuple(0, std::get<1>(wCastle), std::get<2>(wCastle));
-            wCastle = temp;
+        if(piece == 3){
+            if(std::get<0>(start) == 7 &&std::get<1>(start) == 0){
+                std::tuple<int, int, int> temp = std::make_tuple(0, std::get<1>(wCastle), std::get<2>(wCastle));
+                wCastle = temp;
+            }
+            else if(std::get<0>(start) == 7 && std::get<1>(start) == 7){
+                std::tuple<int, int, int> temp = std::make_tuple(std::get<0>(wCastle), std::get<1>(wCastle), 0);
+                wCastle = temp;
+            }
         }
-        else if(std::get<0>(start) == 7 && std::get<1>(start) == 7){
-            std::tuple<int, int, int> temp = std::make_tuple(std::get<0>(wCastle), std::get<1>(wCastle), 0);
-            wCastle = temp;
+        if(piece == 9){
+            if(std::get<0>(start) == 0 &&std::get<1>(start) == 0){
+                std::tuple<int, int, int> temp = std::make_tuple(0, std::get<1>(bCastle), std::get<2>(bCastle));
+                bCastle = temp;
+            }
+            else if(std::get<0>(start) == 0 &&std::get<1>(start) == 7){
+                std::tuple<int, int, int> temp = std::make_tuple(std::get<0>(bCastle), std::get<1>(bCastle), 0);
+                bCastle = temp;
+            }
         }
-    }
-     if(piece == 9){
-        if(std::get<0>(start) == 0 &&std::get<1>(start) == 0){
-            std::tuple<int, int, int> temp = std::make_tuple(0, std::get<1>(bCastle), std::get<2>(bCastle));
-            bCastle = temp;
-        }
-        else if(std::get<0>(start) == 0 &&std::get<1>(start) == 7){
-            std::tuple<int, int, int> temp = std::make_tuple(std::get<0>(bCastle), std::get<1>(bCastle), 0);
-            bCastle = temp;
-        }
-    }
+    }  
     /**************************************************************************************/
-    //King Castle Moves
+    //King Castle Moves Rook Too
     if(piece % 6 == 5){
+    
     //Piece is a king, check if it castled
         if(abs(std::get<1>(end)-std::get<1>(start)) > 1){ //king moved more than one horizontal in a valid move
-            if(piece < 6){//white
-                board[std::get<0>(start)][std::get<1>(start)] = 3;
+            
+            if(piece < 6)
+            {//white
+                if(std::get<1>(end) == 0){
+                    //left castle white
+                    board[7][3] = 3;
+                    board[7][0] = -1;
+                }
+                if(std::get<1>(end) == 6){
+                    //right castle white
+                    board[7][5] = 3;
+                    board[7][7] = -1;
+                }
             }
             else{//black
-                board[std::get<0>(start)][std::get<1>(start)] = 8;
+                if(std::get<1>(end) == 0){
+                        //left castle black
+                        board[0][3] = 9;
+                        board[0][0] = -1;
+                }
+                if(std::get<1>(end) == 6){
+                    //right castle black
+                    board[0][5] = 9;
+                    board[0][7] = -1;
+                }
             }
-
         }
     }
     return board;
@@ -694,25 +876,30 @@ bool GameBoard::isValidMove(std::tuple<int, int> start, std::tuple<int, int> end
     }
     return false;
 }
-void GameBoard::printBoard(vect2d board, int turn){
+void GameBoard::printBoard(vect2d board){
 
     for(int i = 0; i < 8; i++){
         std::cout << "|\t";
-        for(int j = 0; i < 8; i++){
+        for(int j = 0; j < 8; j++){
             std::cout << getPieceName(board[i][j]) << "\t";
         }
         std::cout << "|" << std::endl;
     }
-    std::cout << "Current turn: ";
-    if(turn == 0){std::cout << "White";}
-    else{std::cout << "Black";}
+
 }
 bool GameBoard::checkMate(std::vector<std::vector<int>> board, int player){
 
     if(inCheck(player, board)){
         for(std::tuple<int, int, int, int> move : allPossibleMoves(board, player)) {
-        if(!inCheck(player, modBoard(std::make_tuple(std::get<0>(move), std::get<1>(move)),std::make_tuple(std::get<2>(move), std::get<3>(move)), board))) return false;
+            if(!inCheck(player, modBoard(std::make_tuple(std::get<0>(move), std::get<1>(move)),std::make_tuple(std::get<2>(move), std::get<3>(move)), board, 1))){
+              if(!isAttacked( modBoard(std::make_tuple(std::get<0>(move), std::get<1>(move)),std::make_tuple(std::get<2>(move), std::get<3>(move)), board, 1), std::get<0>(move), std::get<1>(move)))
+              {
+              return false;
+              exit(0);
+              }
+            } 
         }
+        return true;
     }
-  return true;
+    return false;
 }

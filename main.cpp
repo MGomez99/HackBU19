@@ -7,7 +7,8 @@ using namespace std;
 using namespace game;
 
 int main(){
-  GameBoard board = GameBoard();
+  GameBoard myBoard = GameBoard();
+  
   bool running = true;
   string move;
   string space1;
@@ -105,8 +106,8 @@ int main(){
 
     current = make_tuple(current1, current2);
     next = make_tuple(next1, next2);
-    board = board.modBoard(board.getBoard()[current1][current2], current, next, board.getBoard());
-    board.checkmate(1);
+    myBoard.setBoard( myBoard.modBoard(current, next, myBoard.getBoard()));
+    myBoard.checkMate(myBoard.getBoard(), 1);
 
 
     //Black's turn
@@ -190,8 +191,9 @@ int main(){
 
     current = make_tuple(current1, current2);
     next = make_tuple(next1, next2);
-    board = board.modBoard(board.getBoard()[current1][current2], current, next, board.getBoard());
-    board.checkmate(0);
+    myBoard.setBoard( myBoard.modBoard(current, next, myBoard.getBoard()));
+    myBoard.checkMate(myBoard.getBoard(), 0);
+
 
   }
 }

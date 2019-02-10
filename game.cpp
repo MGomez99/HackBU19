@@ -1,7 +1,7 @@
 #include "game.h"
 
 using namespace game;
-bool isInBoard(int x, int y){
+bool GameBoard::isInBoard(int x, int y){
     if(x < 8 && x >=0 ){
         if(y < 8 && y >=0 ){
             return true;
@@ -9,7 +9,7 @@ bool isInBoard(int x, int y){
     }
     return false;
 }
-int teamCheck(int team, int x, int y,vect2d board){
+int GameBoard::teamCheck(int team, int x, int y,vect2d board){
     int piece = board[x][y];
     if(piece != -1){
         if(team == 0 && piece > 5){
@@ -30,7 +30,7 @@ int teamCheck(int team, int x, int y,vect2d board){
     }
     return -1;
 }
-bool isAttacked(std::vector<std::vector<int>> board, int x, int y){
+bool GameBoard::isAttacked(std::vector<std::vector<int>> board, int x, int y){
   //store original piece coords
   int xpos = x;
   int ypos = y;
@@ -166,7 +166,7 @@ bool isAttacked(std::vector<std::vector<int>> board, int x, int y){
   }
   return false;
 }
-std::string getPieceName(int i){
+std::string GameBoard::getPieceName(int i){
     std::vector<std::string> PieceNames = {"pawnW", "knightW", "bishopW", "rookW", "queenW", "kingW", "pawnB", "knightB", "bishopB", "rookB", "queenB", "kingB"};
     return PieceNames[i];
 }
@@ -524,7 +524,7 @@ bool GameBoard::inCheck(int player, vect2d board){
   return false;
 }
 
-std::vector<std::tuple<int, int, int, int>> allPossibleMoves(vect2d board, int turn){
+std::vector<std::tuple<int, int, int, int>> GameBoard::allPossibleMoves(vect2d board, int turn){
   std::vector<std::tuple<int, int, int, int>> moves;
   if(turn == 0) { //white to play
     for(int i = 0; i < 8; i++){
@@ -553,14 +553,14 @@ std::vector<std::tuple<int, int, int, int>> allPossibleMoves(vect2d board, int t
 
 vect2d GameBoard::modBoard(std::tuple<int, int> start, std::tuple<int, int> end, vect2d board){
     int piece = board[std::get<0>(start)][std::get<1>(start)];
-    board[std::get<0>(start)][std::get<1>(start)] = empty;
+    board[std::get<0>(start)][std::get<1>(start)] = emptyS;
     board[std::get<0>(end)][std::get<1>(end)] = piece;
     //en-Passant check and promotion check
     if(piece % 6 == 0){ //piece is a pawn
         /** FOR EN PASSANT*/
        if(std::get<1>(start) == std::get<0>(end) +1 || std::get<1>(start) == std::get<0>(end) - 1){ //if a pawn is moving  to a different coloumn
             if((std::get<1>(enPassant) == std::get<1>(end)) && (std::get<0>(enPassant) == std::get<0>(start))){ 
-                board[std::get<0>(enPassant)][std::get<1>(enPassant)] = empty;
+                board[std::get<0>(enPassant)][std::get<1>(enPassant)] = emptyS;
                 enPassant = std::make_tuple(-1, -1);
             }
        }

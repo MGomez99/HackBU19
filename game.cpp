@@ -13,21 +13,23 @@ std::vector<std::tuple<int, int>> isValidMove(std::tuple<int, int> position, vec
     {  
         case 0:
             /* pawn */
+
             break;
         case 1:
             /* knight */
+            
             break;
         case 2:
             /* bishop */
             break;
         case 3:
-            /* queen */
+            /* rook */
             break;
         case 4:
-            /* king */
+            /* queen */
             break;
         case 5:
-            /* rook */
+            /* king */
             break;
         default:
             std::cout << "fatal error, wrong piece." <<std::endl;

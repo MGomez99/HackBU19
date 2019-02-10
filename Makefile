@@ -2,9 +2,9 @@ CFLAGS = -Wall -Wextra -DDEBUG -g -std=c++14
 l = game
 s = main
 $(l):
-	g++ $(CFLAGS) -c $(l).cpp
-$(s): 
-	g++ $(CFLAGS) -c $(s).cpp
+	g++ $(CFLAGS) -c -o $(l).o $(l).cpp
+$(s): $(l)
+	g++ $(CFLAGS) -c -o $(s).o $(s).cpp
 all: $(l) $(s)
 	g++ $(l).o $(s).o -o $(s)
 

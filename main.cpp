@@ -1,10 +1,7 @@
-#include <cstdlib>
-#include <iostream>
 #include "game.h"
 
 
 using namespace std;
-using namespace game;
 
 int main(){
   GameBoard myBoard = GameBoard();

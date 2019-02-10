@@ -1,6 +1,6 @@
 #include "game.h"
+GameBoard::GameBoard(){}
 
-using namespace game;
 bool GameBoard::isInBoard(int x, int y){
     if(x < 8 && x >=0 ){
         if(y < 8 && y >=0 ){
@@ -662,3 +662,4 @@ bool GameBoard::checkMate(std::vector<std::vector<int>> board, int player){
     }
   return true;
 }
+

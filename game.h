@@ -14,7 +14,7 @@ enum Pieces {emptyS = -1, pawnW, knightW, bishopW, rookW, queenW, kingW, pawnB, 
         Pawn = 0/6, Rook = 1/7, Knight = 2/8, Bishop = 3/9, Queen = 4/10, King = 5/12
     */
 //     main::main()
-namespace game{
+//namespace game{
     class GameBoard{
         private:
             vect2d board{
@@ -44,8 +44,8 @@ namespace game{
             int teamCheck(int team, int x, int y,vect2d board);
             bool isAttacked(std::vector<std::vector<int>> board, int x, int y);
             std::string getPieceName(int i);
-            
+
     };
-}
+//}
 
 #endif

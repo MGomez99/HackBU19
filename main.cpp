@@ -4,8 +4,10 @@
 
 
 using namespace std;
+using namespace game;
 
 int main(){
+  GameBoard board = GameBoard();
   bool running = true;
   string move;
   string space1;
@@ -16,6 +18,8 @@ int main(){
   int current2;
   int next1;
   int next2;
+  tuple<int, int>current = make_tuple(0, 0);
+  tuple<int, int>next = make_tuple(0, 0);
 
   cout << "\n\n\nQuick explanation of how to input moves: put the name of the space the piece is on \nfirst and the space you want to move to second.  Examples: d8-d6 or h7-h5\nMake sure everything is lowercase and you seperate the spaces with dashes\n\n\n" << endl;
   while(running){
@@ -56,51 +60,54 @@ int main(){
     }
 
     switch(space1.front()){
-      case 'a': current2 = 1; break;
-      case 'b': current2 = 2; break;
-      case 'c': current2 = 3; break;
-      case 'd': current2 = 4; break;
-      case 'e': current2 = 5; break;
-      case 'f': current2 = 6; break;
-      case 'g': current2 = 7; break;
-      case 'h': current2 = 8; break;
+      case 'a': current2 = 0; break;
+      case 'b': current2 = 1; break;
+      case 'c': current2 = 2; break;
+      case 'd': current2 = 3; break;
+      case 'e': current2 = 4; break;
+      case 'f': current2 = 5; break;
+      case 'g': current2 = 6; break;
+      case 'h': current2 = 7; break;
     }
 
     switch(space1.back()){
-      case '1': current1 = 1; break;
-      case '2': current1 = 2; break;
-      case '3': current1 = 3; break;
-      case '4': current1 = 4; break;
-      case '5': current1 = 5; break;
-      case '6': current1 = 6; break;
-      case '7': current1 = 7; break;
-      case '8': current1 = 8; break;
+      case '1': current1 = 0; break;
+      case '2': current1 = 1; break;
+      case '3': current1 = 2; break;
+      case '4': current1 = 3; break;
+      case '5': current1 = 4; break;
+      case '6': current1 = 5; break;
+      case '7': current1 = 6; break;
+      case '8': current1 = 7; break;
     }
 
     switch(space2.front()){
-      case 'a': next2 = 1; break;
-      case 'b': next2 = 2; break;
-      case 'c': next2 = 3; break;
-      case 'd': next2 = 4; break;
-      case 'e': next2 = 5; break;
-      case 'f': next2 = 6; break;
-      case 'g': next2 = 7; break;
-      case 'h': next2 = 8; break;
+      case 'a': next2 = 0; break;
+      case 'b': next2 = 1; break;
+      case 'c': next2 = 2; break;
+      case 'd': next2 = 3; break;
+      case 'e': next2 = 4; break;
+      case 'f': next2 = 5; break;
+      case 'g': next2 = 6; break;
+      case 'h': next2 = 7; break;
     }
 
     switch(space2.back()){
-      case '1': next1 = 1; break;
-      case '2': next1 = 2; break;
-      case '3': next1 = 3; break;
-      case '4': next1 = 4; break;
-      case '5': next1 = 5; break;
-      case '6': next1 = 6; break;
-      case '7': next1 = 7; break;
-      case '8': next1 = 8; break;
+      case '1': next1 = 0; break;
+      case '2': next1 = 1; break;
+      case '3': next1 = 2; break;
+      case '4': next1 = 3; break;
+      case '5': next1 = 4; break;
+      case '6': next1 = 5; break;
+      case '7': next1 = 6; break;
+      case '8': next1 = 7; break;
     }
 
-    cout << "first space for white: "<< current1 << ","<< current2 << endl;
-    cout << "second space for white: "<< next1 << ","<< next2 << endl;
+    current = make_tuple(current1, current2);
+    next = make_tuple(next1, next2);
+    board = board.modBoard(board.getBoard()[current1][current2], current, next, board.getBoard());
+    board.checkmate(1);
+
 
     //Black's turn
     valid = false;
@@ -138,50 +145,53 @@ int main(){
     }
 
     switch(space1.front()){
-      case 'a': current2 = 1; break;
-      case 'b': current2 = 2; break;
-      case 'c': current2 = 3; break;
-      case 'd': current2 = 4; break;
-      case 'e': current2 = 5; break;
-      case 'f': current2 = 6; break;
-      case 'g': current2 = 7; break;
-      case 'h': current2 = 8; break;
+      case 'a': current2 = 0; break;
+      case 'b': current2 = 1; break;
+      case 'c': current2 = 2; break;
+      case 'd': current2 = 3; break;
+      case 'e': current2 = 4; break;
+      case 'f': current2 = 5; break;
+      case 'g': current2 = 6; break;
+      case 'h': current2 = 7; break;
     }
 
     switch(space1.back()){
-      case '1': current1 = 1; break;
-      case '2': current1 = 2; break;
-      case '3': current1 = 3; break;
-      case '4': current1 = 4; break;
-      case '5': current1 = 5; break;
-      case '6': current1 = 6; break;
-      case '7': current1 = 7; break;
-      case '8': current1 = 8; break;
+      case '1': current1 = 0; break;
+      case '2': current1 = 1; break;
+      case '3': current1 = 2; break;
+      case '4': current1 = 3; break;
+      case '5': current1 = 4; break;
+      case '6': current1 = 5; break;
+      case '7': current1 = 6; break;
+      case '8': current1 = 7; break;
     }
 
     switch(space2.front()){
-      case 'a': next2 = 1; break;
-      case 'b': next2 = 2; break;
-      case 'c': next2 = 3; break;
-      case 'd': next2 = 4; break;
-      case 'e': next2 = 5; break;
-      case 'f': next2 = 6; break;
-      case 'g': next2 = 7; break;
-      case 'h': next2 = 8; break;
+      case 'a': next2 = 0; break;
+      case 'b': next2 = 1; break;
+      case 'c': next2 = 2; break;
+      case 'd': next2 = 3; break;
+      case 'e': next2 = 4; break;
+      case 'f': next2 = 5; break;
+      case 'g': next2 = 6; break;
+      case 'h': next2 = 7; break;
     }
 
     switch(space2.back()){
-      case '1': next1 = 1; break;
-      case '2': next1 = 2; break;
-      case '3': next1 = 3; break;
-      case '4': next1 = 4; break;
-      case '5': next1 = 5; break;
-      case '6': next1 = 6; break;
-      case '7': next1 = 7; break;
-      case '8': next1 = 8; break;
+      case '1': next1 = 0; break;
+      case '2': next1 = 1; break;
+      case '3': next1 = 2; break;
+      case '4': next1 = 3; break;
+      case '5': next1 = 4; break;
+      case '6': next1 = 5; break;
+      case '7': next1 = 6; break;
+      case '8': next1 = 7; break;
     }
 
-    cout << "first space for black: "<< current1 << ","<< current2 << endl;
-    cout << "second space for black: "<< next1 << ","<< next2 << endl;
+    current = make_tuple(current1, current2);
+    next = make_tuple(next1, next2);
+    board = board.modBoard(board.getBoard()[current1][current2], current, next, board.getBoard());
+    board.checkmate(0);
+
   }
 }
